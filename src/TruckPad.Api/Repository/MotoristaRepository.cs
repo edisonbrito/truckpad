@@ -32,19 +32,21 @@ namespace TruckPad.Api.Repository
         //Aind para finalizar
         public async Task<IEnumerable<Motorista>> GetPeriod(Periodo Periodo)
         {
-            return await GetPeriodDay();
-
-            //switch (Periodo)
-            //{
-            //    case Periodo.Dia:
-            //        break;                   
-            //    case Periodo.Semana:
-            //        break;
-            //    case Periodo.Mes:
-            //        break;
-            //    default:
-            //        break;
-            //}            
+            return await GetPeriodDay(); ;
+            switch (Periodo)
+            {
+                case Periodo.Dia:
+                    
+                    break;
+                case Periodo.Semana:
+                     await GetPeriodWeek();
+                    break;
+                case Periodo.Mes:
+                     await GetPeriodMonth();
+                    break;
+                default:
+                    break;
+            }
         }
                
         //Corrigir data : esta buscando valor maior que a data atual.
@@ -57,7 +59,7 @@ namespace TruckPad.Api.Repository
             return dayNow.ToList();
         }
 
-        public async Task<IEnumerable<Motorista>> Week()
+        public async Task<IEnumerable<Motorista>> GetPeriodWeek()
         {
             var dataSemana = DateHelper.GetDateOfWeek();
             var filterBuilder = Builders<Motorista>.Filter;
@@ -71,7 +73,7 @@ namespace TruckPad.Api.Repository
             return searchResult.ToList();
         }
 
-        public async Task<IEnumerable<Motorista>> Month()
+        public async Task<IEnumerable<Motorista>> GetPeriodMonth()
         {
             var dataMes = DateHelper.GetDateOfMonth();
             var filterBuilder = Builders<Motorista>.Filter;
