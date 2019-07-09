@@ -1,5 +1,5 @@
 # Aplicação Gerenciamento terminal - TruckPad
-# Projetado: https://truckpadapi.azurewebsites.net/swagger/index.html
+# https://truckpadapi.azurewebsites.net/swagger/index.html
 
 * **Server Side**: ASP.NET Core
 
