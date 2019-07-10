@@ -90,7 +90,7 @@ namespace TruckPad.Api.Repository
         }
 
         //Faltar fazer agrupamento
-        public async Task<List<Motorista>> GetVehicleType(TipoVeiculo tipoVeiculo)
+        public async Task<List<Motorista>> GetVehicleType()
         {
             var all = await DbSet.FindAsync(Builders<Motorista>.Filter.Empty);
                                           

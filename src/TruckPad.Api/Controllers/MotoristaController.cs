@@ -31,9 +31,9 @@ namespace TruckPad.Api.Controllers
         }
 
         [HttpGet("agrupado-tipo-caminhao")]
-        public async Task<ActionResult<IEnumerable<Motorista>>> GetAgrouped(TipoVeiculo tipoVeiculo)
+        public async Task<ActionResult<IEnumerable<Motorista>>> GetAgrouped()
         {
-            var motorista = await _motoristaRepository.GetVehicleType(tipoVeiculo);
+            var motorista = await _motoristaRepository.GetVehicleType();
             return Ok(motorista);
         }
 
