@@ -30,6 +30,11 @@ namespace TruckPad.Domain.Model
             CargaParaVoltaDestino = cargaParaVoltaDestino;
         }
 
+        public Motorista()
+        {
+            Veiculo = new Veiculo();
+        }
+
         public Guid Id { get; set; }
         public string Nome { get; set; }
         public int Idade { get; set; }
@@ -37,7 +42,6 @@ namespace TruckPad.Domain.Model
         public bool VeiculoProprio { get; set; }       
         public CNH CNH { get; set; }
         public bool CargaParaVoltaDestino { get; set; }
-        //public Geolocalizacao Geolocalizacao { get; set; }
         public Veiculo Veiculo { get; set; }       
     }   
 }

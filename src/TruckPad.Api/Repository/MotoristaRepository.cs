@@ -19,40 +19,42 @@ namespace TruckPad.Api.Repository
 
         public async Task<IEnumerable<Motorista>> GetVehicleOriginunLoaded()
         {
-            var motoristas = await DbSet.FindAsync(Builders<Motorista>.Filter.Eq(x => x.CargaParaVoltaDestino, true));
+            var motoristas = await DbSet.FindAsync(Builders<Motorista>.Filter.Eq(x => x.CargaParaVoltaDestino, false));
             return motoristas.ToList();
         }
 
         public async Task<IEnumerable<Motorista>> GetVehicleOwners()
         {
-            var motoristas = await DbSet.FindAsync(Builders<Motorista>.Filter.Eq(x=> x.VeiculoProprio, true));
+            var motoristas = await DbSet.FindAsync(Builders<Motorista>.Filter.Eq(x => x.VeiculoProprio, true));
             return motoristas.ToList();
         }
 
-        //Aind para finalizar
         public async Task<IEnumerable<Motorista>> GetPeriod(Periodo Periodo)
         {
-            return await GetPeriodDay(); ;
+            IEnumerable<Motorista> result = null;
+
             switch (Periodo)
             {
                 case Periodo.Dia:
-                    
+                    result = await GetPeriodDay();
                     break;
                 case Periodo.Semana:
-                     await GetPeriodWeek();
+                    result = await GetPeriodWeek();
                     break;
                 case Periodo.Mes:
-                     await GetPeriodMonth();
+                    result = await GetPeriodMonth();
                     break;
                 default:
+                    result = await GetPeriodDay();
                     break;
-            }
+            };
+
+            return result;
         }
-               
-        //Corrigir data : esta buscando valor maior que a data atual.
+
         public async Task<IEnumerable<Motorista>> GetPeriodDay()
         {
-            var dayNow =  await DbSet
+            var dayNow = await DbSet
                 .FindAsync(Builders<Motorista>
                 .Filter.Gt(x => x.Veiculo.DataPassagemTerminal, DateTime.Today));
 
@@ -64,8 +66,8 @@ namespace TruckPad.Api.Repository
             var dataSemana = DateHelper.GetDateOfWeek();
             var filterBuilder = Builders<Motorista>.Filter;
 
-            var filter = filterBuilder.Gte(x => x.Veiculo.DataPassagemTerminal, new BsonDateTime(dataSemana.Item1)) &
-                filterBuilder.Lte(x => x.Veiculo.DataPassagemTerminal, new BsonDateTime(dataSemana.Item2));
+            var filter = filterBuilder.Gte(x => x.Veiculo.DataPassagemTerminal, new BsonDateTime(dataSemana.Item1.Date)) &
+                filterBuilder.Lte(x => x.Veiculo.DataPassagemTerminal, new BsonDateTime(dataSemana.Item2.Date));
 
             var searchResult = await DbSet
                 .FindAsync(filter);
@@ -85,6 +87,16 @@ namespace TruckPad.Api.Repository
                 .FindAsync(filter);
 
             return searchResult.ToList();
+        }
+
+        //Faltar fazer agrupamento
+        public async Task<List<Motorista>> GetVehicleType(TipoVeiculo tipoVeiculo)
+        {
+            var all = await DbSet.FindAsync(Builders<Motorista>.Filter.Empty);
+                                          
+            var a = all.ToList();
+
+            return null;            
         }
     }
 }

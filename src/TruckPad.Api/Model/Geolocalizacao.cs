@@ -2,7 +2,13 @@
 {
     public class Geolocalizacao
     {
-        public Origem Origem { get; set; }
-        public Destino Destino { get; set; }
+        public Geolocalizacao()
+        {
+            Origem = new LocalidadeOrigem();
+            Destino = new LocalidadeDestino();
+        }
+
+        public LocalidadeOrigem Origem { get; set; }
+        public LocalidadeDestino Destino { get; set; }
     }
 }

@@ -5,6 +5,11 @@ namespace TruckPad.Domain.Model
 {
     public class Veiculo
     {
+        public Veiculo()
+        {
+            Geolocalizacao = new Geolocalizacao();
+        }
+
         public Veiculo(bool carregado, TipoVeiculo tipo, string placa, DateTime dataPassagemTerminal)
         {
             Carregado = carregado;
@@ -26,5 +31,7 @@ namespace TruckPad.Domain.Model
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime DataPassagemTerminal { get; set; }
+
+        public Geolocalizacao Geolocalizacao { get; set; }
     }
 }

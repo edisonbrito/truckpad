@@ -10,5 +10,6 @@ namespace TruckPad.Api.Interfaces
         Task<IEnumerable<Motorista>> GetVehicleOwners();
         Task<IEnumerable<Motorista>> GetVehicleOriginunLoaded();
         Task<IEnumerable<Motorista>> GetPeriod(Periodo Periodo);
+        Task<List<Motorista>> GetVehicleType(TipoVeiculo tipoVeiculo);
     }
 }

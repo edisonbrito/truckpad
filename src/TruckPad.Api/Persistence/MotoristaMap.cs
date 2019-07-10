@@ -22,7 +22,8 @@ namespace TruckPad.Api.Persistence
                 map.MapMember(x => x.VeiculoProprio).SetIsRequired(true);
                 map.MapMember(x => x.CNH).SetIsRequired(true);
                 map.MapMember(x => x.VeiculoProprio).SetIsRequired(true);
-               map.MapMember(x => x.Veiculo).SetIsRequired(true);
+                map.MapMember(x => x.Veiculo).SetIsRequired(true);
+                
             });
         }
     }

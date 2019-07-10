@@ -18,16 +18,12 @@ namespace TruckPad.Api
         private readonly List<Func<Task>> _commands;
         public MongoContext(IConfiguration configuration)
         {
-
-            // Set Guid to CSharp style (with dash -)
             BsonDefaults.GuidRepresentation = GuidRepresentation.CSharpLegacy;
 
-            // Every command will be stored and it'll be processed at SaveChanges
             _commands = new List<Func<Task>>();
 
             RegisterConventions();
 
-            // Configure mongo (You can inject the config, just to simplify)
             var mongoClient = new MongoClient(Environment.GetEnvironmentVariable("MONGOCONNECTION") ?? configuration.GetSection("MongoSettings").GetSection("Connection").Value);
 
             Database = mongoClient.GetDatabase(Environment.GetEnvironmentVariable("DATABASENAME") ?? configuration.GetSection("MongoSettings").GetSection("DatabaseName").Value);

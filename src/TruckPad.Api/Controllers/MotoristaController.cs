@@ -23,19 +23,27 @@ namespace TruckPad.Api.Controllers
             _uow = uow;
         }
 
-        //Mostrar uma lista de origem e destino agrupado por cada um dos tipos
-        //A Fazer dúvida
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<Motorista>>> GetAll()
+        {
+            var motorista = await _motoristaRepository.GetAll();
+            return Ok(motorista);
+        }
 
+        [HttpGet("agrupado-tipo-caminhao")]
+        public async Task<ActionResult<IEnumerable<Motorista>>> GetAgrouped(TipoVeiculo tipoVeiculo)
+        {
+            var motorista = await _motoristaRepository.GetVehicleType(tipoVeiculo);
+            return Ok(motorista);
+        }
 
-        //FAZENDO
-        [HttpGet("passagem-caminhao-periodo")]
+        [HttpGet("caminhao-periodo")]
         public async Task<ActionResult<IEnumerable<Motorista>>> Get(Periodo periodo)
         {
             var motorista = await _motoristaRepository.GetPeriod(periodo);
             return Ok(motorista);
         }
 
-        //OK
         [HttpGet("volta-origem-sem-carga")]
         public async Task<ActionResult<IEnumerable<Motorista>>> ObterMotoristasSemCarga()
         {
@@ -43,7 +51,6 @@ namespace TruckPad.Api.Controllers
             return Ok(carga);
         }        
 
-        //OK
         [HttpGet("veiculo-proprio")]
         public async Task<ActionResult<IEnumerable<Motorista>>> ObterMotoristasDonoDeCaminhao()
         {
@@ -51,8 +58,6 @@ namespace TruckPad.Api.Controllers
             return Ok(motoristas);
         }
 
-
-        //OK
         [HttpGet("{id}")]
         public async Task<ActionResult<Motorista>> Get(Guid id)
         {
@@ -60,8 +65,6 @@ namespace TruckPad.Api.Controllers
             return Ok(motorista);
         }
 
-
-        //OK
         [HttpPost]
         [ProducesResponseType(typeof(Motorista), 201)]
         [ProducesResponseType(typeof(Motorista), 400)]
@@ -116,8 +119,6 @@ namespace TruckPad.Api.Controllers
             return Ok(await _motoristaRepository.GetById(id));
         }
 
-
-        //OK
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(Motorista), 200)]
         [ProducesResponseType(typeof(Motorista), 400)]
